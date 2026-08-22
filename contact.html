@@ -485,7 +485,7 @@
   
       const data = await res.json();
       status.textContent =
-        data.result === "success" ? "Thanks — we'll be in touch." : "Something went wrong.";
+        data.result === "success" ? "Bedankt. We nemen zo snel mogelijk contact op." : "Er is iets mis gegaan.";
       if (data.result === "success") form.reset();
     });
   </script>
