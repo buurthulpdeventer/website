@@ -358,7 +358,7 @@
 
     <section class="contact-card" aria-labelledby="contact-title">
       <h2 id="contact-title">Contactgegevens</h2>
-      <form id="x-rgForm" action="https://script.google.com/macros/s/AKfycbzLetFPk4H_UTrdnGXZmWC33F5iJC-XqnrnDPLnC9eMkOETt0PCuG-cwQo4xRvW2NYUSA/exec" method="post" enctype="multipart/form-data">
+      <form id="rgForm" action="https://script.google.com/macros/s/AKfycbzLetFPk4H_UTrdnGXZmWC33F5iJC-XqnrnDPLnC9eMkOETt0PCuG-cwQo4xRvW2NYUSA/exec" method="post" enctype="text/plain">
         <div class="row">
           <label>Voornaam *
             <input type="text" name="Voornaam" autocomplete="given-name" required>
@@ -462,31 +462,28 @@
         menuButton.focus();
       }
     });
+
+    document.getElementById('rgForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = Object.fromEntries(new FormData(form).entries());
+    
+      fetch(form.action, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json;charset=utf-8' } // voorkomt CORS preflight
+      })
+        .then(res => res.json())
+        .then(result => {
+          if (result.result === 'success') {
+            alert('Bedankt, uw aanvraag is verstuurd!');
+            form.reset();
+          } else {
+            alert('Er ging iets mis: ' + result.error);
+          }
+        })
+        .catch(err => alert('Netwerkfout: ' + err));
+    });
   </script>
-</body>
-
-<script>
-document.getElementById('rgForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  const form = e.target;
-  const data = Object.fromEntries(new FormData(form).entries());
-
-  fetch(form.action, {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' } // voorkomt CORS preflight
-  })
-    .then(res => res.json())
-    .then(result => {
-      if (result.result === 'success') {
-        alert('Bedankt, uw aanvraag is verstuurd!');
-        form.reset();
-      } else {
-        alert('Er ging iets mis: ' + result.error);
-      }
-    })
-    .catch(err => alert('Netwerkfout: ' + err));
-});
-</script>
-  
+</body>  
 </html>
