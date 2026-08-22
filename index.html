@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home | BuurthulpDeventer</title>
+  <meta name="description" content="BuurthulpDeventer - buurtgenoten helpen elkaar in Deventer.">
+  <style>
+    :root {
+      --green: #28ad97;
+      --yellow: #fff69a;
+      --black: #050505;
+      --white: #ffffff;
+      --title-size: clamp(4rem, 8.1vw, 5.4rem);
+      --text-size: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--green);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--black);
+      background: var(--green);
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 36px 56px 42px;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    .menu-button {
+      width: 64px;
+      height: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .menu-button span {
+      display: block;
+      width: 64px;
+      height: 4px;
+      background: var(--black);
+      border-radius: 3px;
+    }
+
+    .site-header {
+      display: grid;
+      grid-template-columns: 64px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .menu-wrap {
+      position: relative;
+      width: max-content;
+      margin-top: 20px;
+      line-height: 0;
+      z-index: 10;
+    }
+
+    .menu-panel {
+      position: absolute;
+      top: 70px;
+      left: 0;
+      width: min(78vw, 340px);
+      display: grid;
+      gap: 12px;
+      padding: 20px;
+      border-radius: 26px;
+      background: var(--yellow);
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.16);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px);
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+
+    .menu-panel.is-open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .menu-panel a {
+      color: var(--black);
+      text-decoration: none;
+      font-size: 24px;
+      line-height: 1.2;
+      padding: 10px 6px;
+    }
+
+    .menu-panel a:hover,
+    .menu-panel a:focus-visible {
+      text-decoration: underline;
+      outline: none;
+    }
+
+    .hero {
+      margin-top: 0;
+      min-width: 0;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--yellow);
+      font-size: var(--title-size);
+      font-weight: 400;
+      line-height: 1.04;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .title-line {
+      width: 100%;
+      height: 3px;
+      margin: 4px 0 0;
+      background: var(--yellow);
+    }
+
+    .home-layout {
+      display: grid;
+      grid-template-columns: minmax(260px, 330px) minmax(360px, 1fr);
+      gap: clamp(42px, 7vw, 98px);
+      align-items: center;
+      margin-top: 16px;
+      padding-left: 68px;
+    }
+
+    .tiles {
+      width: 100%;
+      margin: 0;
+      display: grid;
+      gap: 15px;
+    }
+
+    .tile {
+      min-height: 126px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 44px;
+      background: var(--yellow);
+      color: var(--black);
+      text-decoration: none;
+      font-size: var(--text-size);
+      font-weight: 400;
+      letter-spacing: 0;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .tile:hover,
+    .tile:focus-visible {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.12);
+      outline: none;
+    }
+
+    .tile .arrow {
+      font-size: 1em;
+      line-height: 1;
+      transform: translateY(-2px);
+    }
+
+    .home-image {
+      width: min(100%, 690px);
+      display: block;
+      justify-self: center;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      margin-top: 18px;
+    }
+
+    .socials a {
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .socials svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        padding: 32px 22px 34px;
+      }
+
+      .menu-button,
+      .menu-button span {
+        width: 48px;
+      }
+
+      .menu-button {
+        height: 38px;
+      }
+
+      .menu-button span {
+        height: 3px;
+      }
+
+      .menu-panel {
+        top: 56px;
+      }
+
+      .menu-wrap {
+        margin-top: 14px;
+      }
+
+      .site-header {
+        grid-template-columns: 48px minmax(0, 1fr);
+        gap: 16px;
+      }
+
+      .hero {
+        margin-top: 0;
+      }
+
+      h1 {
+        font-size: var(--title-size);
+        white-space: normal;
+      }
+
+      .title-line {
+        width: 100%;
+        margin-top: 8px;
+        margin-left: 0;
+      }
+
+      .home-layout {
+        grid-template-columns: 1fr;
+        gap: 34px;
+        margin-top: 28px;
+        padding-left: 0;
+      }
+
+      .tiles {
+        width: 100%;
+        gap: 22px;
+      }
+
+      .tile {
+        min-height: 118px;
+        border-radius: 44px;
+        padding: 28px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .page {
+        min-height: 100vh;
+        padding-inline: 20px;
+      }
+
+      .tile {
+        min-height: 104px;
+        border-radius: 38px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <div class="menu-wrap">
+        <button class="menu-button" type="button" aria-label="Menu" aria-controls="site-menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="menu-panel" id="site-menu" aria-label="Menu" hidden>
+          <a href="index.html">Home</a>
+          <a href="wie-zijn-wij.html">Wie zijn wij?</a>
+          <a href="wat-doen-wij.html">Wat doen wij?</a>
+          <a href="contact.html">Neem contact op</a>
+        </nav>
+      </div>
+
+      <section class="hero" aria-labelledby="page-title">
+        <h1 id="page-title">BuurthulpDeventer</h1>
+        <div class="title-line" aria-hidden="true"></div>
+      </section>
+    </header>
+
+    <div class="home-layout">
+      <nav class="tiles" aria-label="Hoofdnavigatie">
+        <a class="tile" href="wie-zijn-wij.html">
+          <span>Wie Zijn Wij?</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="tile" href="wat-doen-wij.html">
+          <span>Wat Doen Wij?</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="tile" href="contact.html">
+          <span>Neem Contact Op</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </nav>
+
+      <img class="home-image" src="home.jpeg" alt="Illustratie van Buurthulp-Deventer met pictogrammen voor praktische hulp.">
+    </div>
+
+    <footer class="socials" aria-label="Social media">
+      <a href="https://www.facebook.com/profile.php?id=61590582818465" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path fill="#1877f2" d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.49 0-1.956.931-1.956 1.887v2.265h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+          <path fill="#fff" d="m16.671 15.563.532-3.49h-3.328V9.808c0-.956.466-1.887 1.956-1.887h1.513v-2.97s-1.374-.235-2.686-.235c-2.741 0-4.533 1.672-4.533 4.697v2.66H7.078v3.49h3.047V24a12.13 12.13 0 0 0 3.75 0v-8.437h2.796z"/>
+        </svg>
+      </a>
+      <a href="https://www.instagram.com/buurthulpdeventer/" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <defs>
+            <radialGradient id="instagram-gradient-home" cx="30%" cy="107%" r="150%">
+              <stop offset="0" stop-color="#fdf497"/>
+              <stop offset="0.05" stop-color="#fdf497"/>
+              <stop offset="0.45" stop-color="#fd5949"/>
+              <stop offset="0.6" stop-color="#d6249f"/>
+              <stop offset="0.9" stop-color="#285aeb"/>
+            </radialGradient>
+          </defs>
+          <rect width="24" height="24" rx="6" fill="url(#instagram-gradient-home)"/>
+          <path fill="#fff" d="M12 7.35A4.65 4.65 0 1 0 12 16.65 4.65 4.65 0 0 0 12 7.35zm0 7.68A3.03 3.03 0 1 1 12 8.97a3.03 3.03 0 0 1 0 6.06zm5.91-7.86a1.08 1.08 0 1 1-2.16 0 1.08 1.08 0 0 1 2.16 0z"/>
+          <path fill="#fff" d="M12 4.8c2.34 0 2.62.01 3.55.05.86.04 1.33.18 1.64.3.41.16.71.35 1.02.66.31.31.5.61.66 1.02.12.31.26.78.3 1.64.04.93.05 1.21.05 3.55s-.01 2.62-.05 3.55c-.04.86-.18 1.33-.3 1.64-.16.41-.35.71-.66 1.02-.31.31-.61.5-1.02.66-.31.12-.78.26-1.64.3-.93.04-1.21.05-3.55.05s-2.62-.01-3.55-.05c-.86-.04-1.33-.18-1.64-.3a2.74 2.74 0 0 1-1.02-.66 2.74 2.74 0 0 1-.66-1.02c-.12-.31-.26-.78-.3-1.64-.04-.93-.05-1.21-.05-3.55s.01-2.62.05-3.55c.04-.86.18-1.33.3-1.64.16-.41.35-.71.66-1.02.31-.31.61-.5 1.02-.66.31-.12.78-.26 1.64-.3.93-.04 1.21-.05 3.55-.05zm0-1.58c-2.38 0-2.68.01-3.62.05-.94.04-1.58.19-2.14.41a4.31 4.31 0 0 0-1.56 1.02 4.31 4.31 0 0 0-1.02 1.56c-.22.56-.37 1.2-.41 2.14-.04.94-.05 1.24-.05 3.62s.01 2.68.05 3.62c.04.94.19 1.58.41 2.14.23.58.54 1.08 1.02 1.56.48.48.98.79 1.56 1.02.56.22 1.2.37 2.14.41.94.04 1.24.05 3.62.05s2.68-.01 3.62-.05c.94-.04 1.58-.19 2.14-.41a4.31 4.31 0 0 0 1.56-1.02 4.31 4.31 0 0 0 1.02-1.56c.22-.56.37-1.2.41-2.14.04-.94.05-1.24.05-3.62s-.01-2.68-.05-3.62c-.04-.94-.19-1.58-.41-2.14a4.31 4.31 0 0 0-1.02-1.56 4.31 4.31 0 0 0-1.56-1.02c-.56-.22-1.2-.37-2.14-.41-.94-.04-1.24-.05-3.62-.05z"/>
+        </svg>
+      </a>
+    </footer>
+  </main>
+  <script>
+    const menuButton = document.querySelector('.menu-button');
+    const menuPanel = document.querySelector('.menu-panel');
+
+    function closeMenu() {
+      menuPanel.classList.remove('is-open');
+      menuPanel.hidden = true;
+      menuButton.setAttribute('aria-expanded', 'false');
+    }
+
+    menuButton.addEventListener('click', () => {
+      const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+
+      if (isOpen) {
+        closeMenu();
+        return;
+      }
+
+      menuPanel.hidden = false;
+      menuPanel.classList.add('is-open');
+      menuButton.setAttribute('aria-expanded', 'true');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.menu-wrap')) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeMenu();
+        menuButton.focus();
+      }
+    });
+  </script>
+</body>
+</html>
