@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BuurthulpDeVenter - Contact</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        header {
+            background-color: #24AE94;
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #FFF496;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #FFF496;
+        }
+        
+        nav a.active {
+            color: #FFF496;
+            font-weight: bold;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #24AE94 0%, #1a8b72 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 40px;
+            color: #FFF496;
+            margin-bottom: 10px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #FFF496;
+            color: #24AE94;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            background-color: #F9EBD8;
+            transform: translateY(-2px);
+        }
+        
+        .content {
+            background-color: white;
+            padding: 60px 20px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section h2 {
+            color: #24AE94;
+            font-size: 32px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #FFF496;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .contact-box {
+            background-color: #F9EBD8;
+            padding: 30px;
+            border-radius: 8px;
+            border: 2px solid #24AE94;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .contact-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        .contact-box .icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .contact-box h3 {
+            color: #24AE94;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        .contact-box p {
+            color: #555;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .contact-box a {
+            color: #24AE94;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        .contact-box a:hover {
+            color: #FFF496;
+        }
+        
+        .form-section {
+            background-color: #F9EBD8;
+            padding: 40px;
+            border-radius: 8px;
+            border: 2px solid #24AE94;
+            margin-top: 40px;
+        }
+        
+        .form-section h3 {
+            color: #24AE94;
+            font-size: 24px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #24AE94;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #24AE94;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #24AE94;
+            box-shadow: 0 0 5px rgba(36, 174, 148, 0.3);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .submit-btn {
+            background-color: #24AE94;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background-color: #1a8b72;
+            transform: translateY(-2px);
+        }
+        
+        .info-box {
+            background-color: #F9EBD8;
+            border-left: 5px solid #24AE94;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 25px 0;
+        }
+        
+        .info-box h4 {
+            color: #24AE94;
+            margin-bottom: 10px;
+        }
+        
+        .info-box p {
+            color: #555;
+            font-size: 15px;
+        }
+        
+        footer {
+            background-color: #24AE94;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+        }
+        
+        footer p {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .footer-links a {
+            color: #FFF496;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .page-header h1 {
+                font-size: 28px;
+            }
+            
+            .section h2 {
+                font-size: 24px;
+            }
+            
+            .form-section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">BuurthulpDeVenter</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="wie-zijn-wij.html">Wie zijn wij</a></li>
+                    <li><a href="wat-doen-wij.html">Wat doen wij</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="page-header">
+        <div class="container">
+            <h1>Contact</h1>
+            <p>Neem contact met ons op</p>
+        </div>
+    </section>
+    
+    <section class="content">
+        <div class="container">
+            <div class="section">
+                <h2>Hoe kun je ons bereiken?</h2>
+                <p>We helpen graag! Hieronder vind je verschillende manieren om contact met ons op te nemen:</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-box">
+                        <div class="icon">📧</div>
+                        <h3>E-mail</h3>
+                        <p>Stuur ons een e-mail met je vragen of verzoeken.</p>
+                        <a href="mailto:info@buurthulpdeventer.nl">info@buurthulpdeventer.nl</a>
+                    </div>
+                    
+                    <div class="contact-box">
+                        <div class="icon">📱</div>
+                        <h3>Telefoon</h3>
+                        <p>Bel ons op. We nemen graag je oproep aan.</p>
+                        <a href="tel:+31612345678">+31 (0)6 12 34 56 78</a>
+                    </div>
+                    
+                    <div class="contact-box">
+                        <div class="icon">📍</div>
+                        <h3>Bezoeken</h3>
+                        <p>Je kunt ons ook persoonlijk opzoeken.</p>
+                        <p>BuurthulpDeVenter<br>De Venter, Amsterdam<br>Nederland</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <h4>⏰ Kantooruren</h4>
+                <p>
+                    Maandag t/m vrijdag: 09:00 - 17:00 uur<br>
+                    Zaterdag: 10:00 - 14:00 uur<br>
+                    Zondag: Gesloten
+                </p>
+            </div>
+            
+            <div class="section">
+                <h2>Stuur ons een bericht</h2>
+                <p>Heb je een vraag of wil je meer informatie? Vul het formulier hieronder in en we nemen zo snel mogelijk contact met je op.</p>
+                
+                <div class="form-section">
+                    <h3>Contactformulier</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Naam *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">E-mailadres *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Telefoonnummer</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Onderwerp *</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Bericht *</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Verzenden</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Veelgestelde vragen</h2>
+                
+                <div class="info-box">
+                    <h4>❓ Wat moet ik doen als ik hulp nodig heb?</h4>
+                    <p>Neem contact met ons op via telefoon, e-mail of ons contactformulier. Vertel ons wat je nodig hebt en we zullen kijken hoe we kunnen helpen.</p>
+                </div>
+                
+                <div class="info-box">
+                    <h4>❓ Kan ik ook vrijwilliger worden?</h4>
+                    <p>Ja! We zijn altijd op zoek naar enthousiaste vrijwilligers. Neem contact met ons op om te horen hoe je mee kan werken.</p>
+                </div>
+                
+                <div class="info-box">
+                    <h4>❓ Wat kost het om lid te worden?</h4>
+                    <p>BuurthulpDeVenter is gratis voor alle buurtbewoners. We verlangen geen contributie of lidmaatschapskosten.</p>
+                </div>
+                
+                <div class="info-box">
+                    <h4>❓ Hoe kan ik een activiteit melden?</h4>
+                    <p>Je kunt ons bellen, e-mailen of een bericht sturen via ons contactformulier om activiteiten, problemen of ideeën te melden.</p>
+                </div>
+            </div>
+            
+            <div class="section" style="text-align: center; padding-top: 30px;">
+                <a href="index.html" class="btn">Terug naar Home</a>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 BuurthulpDeVenter. Alle rechten voorbehouden.</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="wie-zijn-wij.html">Wie zijn wij</a>
+                <a href="wat-doen-wij.html">Wat doen wij</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
