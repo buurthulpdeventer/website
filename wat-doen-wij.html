@@ -5,274 +5,269 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Wat doen wij? | BuurthulpDeventer</title>
   <meta name="description" content="Lees waarmee BuurthulpDeventer kan helpen.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --green: #28ad97;
+      --green: #24ae94;
       --yellow: #fff69a;
       --cream: #fff9d8;
       --black: #050505;
-      --white: #ffffff;
-      --title-size: clamp(4rem, 8.1vw, 5.4rem);
-      --text-size: 24px;
-      --button-width: min(70vw, 520px);
-      --button-height: 128px;
-      --button-radius: 68px;
+      --display: "Fredoka", "Trebuchet MS", "Segoe UI", sans-serif;
+      --body: "Nunito", "Trebuchet MS", "Segoe UI", sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html {
-      min-height: 100%;
-      background: var(--green);
-    }
+    html { min-height: 100%; background: var(--green); }
 
     body {
       margin: 0;
       min-height: 100vh;
       color: var(--black);
       background: var(--green);
-      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      font-family: var(--body);
     }
 
     .page {
+      position: relative;
       min-height: 100vh;
+      max-width: 1240px;
+      margin: 0 auto;
       padding: 36px 56px 48px;
       overflow-x: hidden;
     }
 
+    /* ---------- menu ---------- */
+    .menu-wrap { position: relative; width: max-content; line-height: 0; z-index: 10; }
+
     .menu-button {
-      width: 64px;
-      height: 50px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 0;
-      border: 0;
-      background: transparent;
-      cursor: pointer;
+      width: 64px; height: 50px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 0; border: 0; background: transparent; cursor: pointer;
     }
 
     .menu-button span {
-      display: block;
-      width: 64px;
-      height: 4px;
-      background: var(--black);
-      border-radius: 3px;
+      display: block; width: 64px; height: 4px;
+      background: var(--yellow); border-radius: 3px;
+    }
+
+    .menu-button:focus-visible { outline: 3px solid var(--cream); outline-offset: 8px; }
+
+    .menu-panel {
+      position: absolute; top: 70px; left: 0;
+      width: min(78vw, 340px);
+      display: grid; gap: 12px; padding: 20px;
+      border-radius: 26px; background: var(--yellow);
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.16);
+      opacity: 0; pointer-events: none; transform: translateY(-8px);
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+
+    .menu-panel.is-open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+    .menu-panel a {
+      color: var(--black); text-decoration: none;
+      font-size: 24px; line-height: 1.2; padding: 10px 6px;
+    }
+
+    .menu-panel a:hover,
+    .menu-panel a:focus-visible { text-decoration: underline; outline: none; }
+
+    /* ---------- titel ---------- */
+    h1 {
+      margin: 0;
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(2.8rem, 7.6vw, 5.6rem);
+      line-height: 1.02;
+      letter-spacing: -0.01em;
+      color: var(--yellow);
+    }
+
+    .title-line { height: 3px; background: var(--yellow); }
+
+
+    @keyframes pop {
+      from { transform: scale(0.35); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
     }
 
     .site-header {
       display: grid;
-      grid-template-columns: 64px minmax(0, 1fr);
-      gap: 24px;
-      align-items: start;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      grid-template-areas: "menu title corner" ". line line";
+      column-gap: 24px;
+      row-gap: 18px;
+      align-items: center;
     }
 
-    .menu-wrap {
-      position: relative;
-      width: max-content;
-      margin-top: 20px;
-      line-height: 0;
-      z-index: 10;
+    .site-header .menu-wrap { grid-area: menu; }
+    .site-header h1 { grid-area: title; min-width: 0; }
+    .site-header .title-line { grid-area: line; }
+
+    .corner {
+      grid-area: corner;
+      display: block;
+      width: clamp(76px, 11vw, 150px);
+      height: auto;
+      aspect-ratio: 1;
+      margin: 6px;
+      border-radius: 50%;
+      outline: 3px solid var(--yellow);
+      outline-offset: 6px;
+      animation: pop 560ms cubic-bezier(.2, 1.35, .4, 1) both;
+      animation-delay: 120ms;
     }
 
-    .menu-panel {
-      position: absolute;
-      top: 70px;
-      left: 0;
-      width: min(78vw, 340px);
-      display: grid;
-      gap: 12px;
-      padding: 20px;
-      border-radius: 26px;
-      background: var(--yellow);
-      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.16);
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-8px);
-      transition: opacity 160ms ease, transform 160ms ease;
-    }
 
-    .menu-panel.is-open {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    .menu-panel a {
-      color: var(--black);
-      text-decoration: none;
-      font-size: var(--text-size);
-      line-height: 1.2;
-      padding: 10px 6px;
-    }
-
-    .menu-panel a:hover,
-    .menu-panel a:focus-visible {
+    .menu-panel a[aria-current="page"] {
+      font-weight: 700;
       text-decoration: underline;
-      outline: none;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 6px;
     }
 
-    .hero {
-      margin-top: 0;
-      min-width: 0;
+    /* ---------- tekst en onderdelen ---------- */
+    .content { margin-top: 52px; }
+
+    .text p {
+      margin: 0 0 1em;
+      max-width: 30em;
+      font-size: 26px;
+      line-height: 1.4;
+      font-weight: 600;
     }
 
-    h1 {
-      margin: 0;
-      color: var(--yellow);
-      font-size: var(--title-size);
-      font-weight: 400;
-      line-height: 1.04;
-      letter-spacing: 0;
-    }
+    .text p:last-child { margin-bottom: 0; }
 
-    .title-line {
-      width: 100%;
-      height: 3px;
-      margin: 8px 0 0;
-      background: var(--yellow);
-    }
-
-    .content {
-      width: min(100%, 1120px);
-      margin: 70px 0 0;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(320px, 48%);
-      grid-template-areas:
-        "text image"
-        "cta cta"
-        "home home";
-      align-items: start;
-      column-gap: 56px;
-      row-gap: 28px;
-    }
-
-    .profile {
+    .photo {
       width: 100%;
       display: block;
-      grid-area: image;
       aspect-ratio: 793 / 695;
       object-fit: cover;
+      border-radius: 44px;
     }
 
-    .text-block {
-      grid-area: text;
-      color: var(--cream);
-      font-size: var(--text-size);
-      line-height: 1.18;
-      font-weight: 400;
+    /* ---------- knoppen onderaan ---------- */
+    .pager {
+      margin-top: 64px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
     }
 
-    .text-block p {
-      margin: 0 0 1em;
-    }
-
-    .text-block p:last-child {
-      margin-bottom: 0;
-    }
-
-    .cta,
-    .home-link {
-      width: var(--button-width);
-      min-height: var(--button-height);
-      margin: 0 auto;
+    .go {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 18px;
-      border-radius: var(--button-radius);
+      justify-content: space-between;
+      gap: 20px;
+      padding: 26px 34px;
+      border-radius: 44px;
       background: var(--yellow);
       color: var(--black);
       text-decoration: none;
-      font-size: var(--text-size);
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 30px;
+      line-height: 1.1;
+      transition: transform 160ms ease;
     }
 
-    .cta {
-      grid-area: cta;
+    .go .badge {
+      width: 52px; height: 52px; flex: none;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      background: var(--black);
+      color: var(--yellow);
+      font-family: var(--body);
+      font-size: 26px; line-height: 1;
+      transition: transform 160ms ease;
     }
 
-    .home-link {
-      grid-area: home;
-      margin-top: 14px;
-    }
+    .go:hover { transform: translateY(-3px); }
+    .go:hover .badge { transform: translateX(4px); }
+    .go--back:hover .badge { transform: translateX(-4px); }
+    .go:focus-visible { outline: 4px solid var(--cream); outline-offset: 4px; }
 
-    .socials {
-      display: flex;
-      justify-content: center;
-      gap: 22px;
-      padding-top: 40px;
-    }
+    .go--dark { background: var(--black); color: var(--yellow); }
+    .go--dark .badge { background: var(--yellow); color: var(--black); }
+
+    /* ---------- socials ---------- */
+    .socials { display: flex; justify-content: center; gap: 22px; margin-top: 56px; }
 
     .socials a {
-      width: 42px;
-      height: 42px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--black);
-      text-decoration: none;
+      width: 42px; height: 42px;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--black); text-decoration: none;
     }
 
-    .socials svg {
-      width: 100%;
-      height: 100%;
-      display: block;
+    .socials svg { width: 100%; height: 100%; display: block; }
+
+    /* ---------- mobiel ---------- */
+    @media (max-width: 760px) {
+      .page { padding: 32px 22px 36px; }
+      .menu-button, .menu-button span { width: 48px; }
+      .menu-button { height: 38px; }
+      .menu-button span { height: 3px; }
+      .menu-panel { top: 56px; }
+      .content { margin-top: 40px; }
+      .text p { font-size: 22px; }
+      .photo { border-radius: 34px; }
+      .pager { grid-template-columns: 1fr; margin-top: 48px; gap: 16px; }
+      .go { padding: 22px 26px; border-radius: 38px; font-size: 26px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .corner { animation: none; }
+      .go, .go .badge, .menu-panel { transition: none; }
+    }
+
+    .what {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 56px;
+      align-items: start;
+    }
+
+    .chips {
+      margin: 26px 0 30px;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .chips li {
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: var(--yellow);
+      font-size: 22px;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    @media (max-width: 860px) {
+      .what { grid-template-columns: 1fr; gap: 36px; }
+      .what .photo { order: -1; }
     }
 
     @media (max-width: 760px) {
-      .page {
-        padding: 36px 28px 36px;
-      }
+      .chips { margin: 20px 0 24px; gap: 10px; }
+      .chips li { font-size: 19px; padding: 10px 18px; }
+    }
 
-      .menu-button,
-      .menu-button span {
-        width: 48px;
-      }
-
-      .menu-button {
-        height: 38px;
-      }
-
-      .menu-button span {
-        height: 3px;
-      }
-
-      .menu-panel {
-        top: 56px;
-      }
-
-      .menu-wrap {
-        margin-top: 14px;
-      }
-
+    @media (max-width: 760px) {
       .site-header {
-        grid-template-columns: 48px minmax(0, 1fr);
-        gap: 16px;
+        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-areas: "menu title" ". line";
+        column-gap: 16px;
+        row-gap: 14px;
       }
-
-      h1 {
-        font-size: var(--title-size);
-      }
-
-      .content {
-        width: 100%;
-        margin-top: 48px;
-        grid-template-columns: 1fr;
-        grid-template-areas:
-          "text"
-          "image"
-          "cta"
-          "home";
-        gap: 32px;
-      }
-
-      .cta,
-      .home-link {
-        width: var(--button-width);
-        min-height: var(--button-height);
-      }
+      .corner { display: none; }
+      h1 { font-size: clamp(2rem, 8.6vw, 2.8rem); }
     }
   </style>
 </head>
@@ -287,37 +282,48 @@
         </button>
 
         <nav class="menu-panel" id="site-menu" aria-label="Menu" hidden>
-          <a href="index.html">Home</a>
-          <a href="wie-zijn-wij.html">Wie zijn wij?</a>
-          <a href="wat-doen-wij.html">Wat doen wij?</a>
-          <a href="contact.html">Neem contact op</a>
+        <a href="index.html">Home</a>
+        <a href="wie-zijn-wij.html">Wie zijn wij?</a>
+        <a href="wat-doen-wij.html" aria-current="page">Wat doen wij?</a>
+        <a href="tarieven.html">Tarieven</a>
+        <a href="contact.html">Neem contact op</a>
         </nav>
       </div>
 
-      <section class="hero" aria-labelledby="page-title">
-        <h1 id="page-title">Wat doen wij?</h1>
-        <div class="title-line" aria-hidden="true"></div>
-      </section>
+      <h1>Wat doen wij?</h1>
+      <img class="corner" src="icoon-tas.png" alt="" width="354" height="354">
+      <div class="title-line" aria-hidden="true"></div>
     </header>
 
-    <section class="content" aria-label="Wat BuurthulpDeventer doet">
-      <img class="profile" src="https://static.wixstatic.com/media/eccf63_bf0c3a42094d4ba89c559aab343a7e2c~mv2.jpeg/v1/fill/w_793,h_695,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Profielfoto%20BuurthulpDeventer.jpeg" alt="Profielfoto BuurthulpDeventer">
-
-      <div class="text-block">
-        <p>Wij kunnen u helpen met verschillende dingen. Denk hierbij aan boodschappen doen, de hond uitlaten en helpen met elektronica. Ook passen wij op de kinderen of huisdieren, of hangen wij dingen op. Wij kunnen kleine ruimtes en oppervlakten schilderen, onkruid wieden en heggen snoeien.</p>
+    <section class="content what" aria-label="Wat BuurthulpDeventer doet">
+      <div class="text">
+        <p>Wij kunnen u helpen met verschillende dingen. Denk hierbij aan:</p>
+        <ul class="chips">
+          <li>Boodschappen doen</li>
+          <li>De hond uitlaten</li>
+          <li>Helpen met elektronica</li>
+          <li>Oppassen op kinderen of huisdieren</li>
+          <li>Dingen ophangen</li>
+          <li>Kleine ruimtes en oppervlakten schilderen</li>
+          <li>Onkruid wieden</li>
+          <li>Heggen snoeien</li>
+        </ul>
         <p>Mocht u interesse hebben, dan kunt u contact opnemen door op onderstaande knop te klikken.</p>
       </div>
 
-      <a class="cta" href="contact.html">
-        <span>Neem contact op</span>
-        <span aria-hidden="true">→</span>
-      </a>
-
-      <a class="home-link" href="index.html">
-        <span>Home</span>
-        <span aria-hidden="true">→</span>
-      </a>
+      <img class="photo" src="https://static.wixstatic.com/media/eccf63_bf0c3a42094d4ba89c559aab343a7e2c~mv2.jpeg/v1/fill/w_793,h_695,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Profielfoto%20BuurthulpDeventer.jpeg" alt="Profielfoto BuurthulpDeventer">
     </section>
+
+    <div class="pager">
+      <a class="go go--back" href="index.html">
+        <span>Home</span>
+        <span class="badge" aria-hidden="true">←</span>
+      </a>
+      <a class="go go--dark" href="contact.html">
+        <span>Neem contact op</span>
+        <span class="badge" aria-hidden="true">→</span>
+      </a>
+    </div>
 
     <footer class="socials" aria-label="Social media">
       <a href="https://www.facebook.com/profile.php?id=61590582818465" aria-label="Facebook">
@@ -329,7 +335,7 @@
       <a href="https://www.instagram.com/buurthulpdeventer/" aria-label="Instagram">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <defs>
-            <radialGradient id="instagram-gradient-work" cx="30%" cy="107%" r="150%">
+            <radialGradient id="instagram-gradient-nieuw" cx="30%" cy="107%" r="150%">
               <stop offset="0" stop-color="#fdf497"/>
               <stop offset="0.05" stop-color="#fdf497"/>
               <stop offset="0.45" stop-color="#fd5949"/>
@@ -337,9 +343,16 @@
               <stop offset="0.9" stop-color="#285aeb"/>
             </radialGradient>
           </defs>
-          <rect width="24" height="24" rx="6" fill="url(#instagram-gradient-work)"/>
+          <rect width="24" height="24" rx="6" fill="url(#instagram-gradient-nieuw)"/>
           <path fill="#fff" d="M12 7.35A4.65 4.65 0 1 0 12 16.65 4.65 4.65 0 0 0 12 7.35zm0 7.68A3.03 3.03 0 1 1 12 8.97a3.03 3.03 0 0 1 0 6.06zm5.91-7.86a1.08 1.08 0 1 1-2.16 0 1.08 1.08 0 0 1 2.16 0z"/>
           <path fill="#fff" d="M12 4.8c2.34 0 2.62.01 3.55.05.86.04 1.33.18 1.64.3.41.16.71.35 1.02.66.31.31.5.61.66 1.02.12.31.26.78.3 1.64.04.93.05 1.21.05 3.55s-.01 2.62-.05 3.55c-.04.86-.18 1.33-.3 1.64-.16.41-.35.71-.66 1.02-.31.31-.61.5-1.02.66-.31.12-.78.26-1.64.3-.93.04-1.21.05-3.55.05s-2.62-.01-3.55-.05c-.86-.04-1.33-.18-1.64-.3a2.74 2.74 0 0 1-1.02-.66 2.74 2.74 0 0 1-.66-1.02c-.12-.31-.26-.78-.3-1.64-.04-.93-.05-1.21-.05-3.55s.01-2.62.05-3.55c.04-.86.18-1.33.3-1.64.16-.41.35-.71.66-1.02.31-.31.61-.5 1.02-.66.31-.12.78-.26 1.64-.3.93-.04 1.21-.05 3.55-.05zm0-1.58c-2.38 0-2.68.01-3.62.05-.94.04-1.58.19-2.14.41a4.31 4.31 0 0 0-1.56 1.02 4.31 4.31 0 0 0-1.02 1.56c-.22.56-.37 1.2-.41 2.14-.04.94-.05 1.24-.05 3.62s.01 2.68.05 3.62c.04.94.19 1.58.41 2.14.23.58.54 1.08 1.02 1.56.48.48.98.79 1.56 1.02.56.22 1.2.37 2.14.41.94.04 1.24.05 3.62.05s2.68-.01 3.62-.05c.94-.04 1.58-.19 2.14-.41a4.31 4.31 0 0 0 1.56-1.02 4.31 4.31 0 0 0 1.02-1.56c.22-.56.37-1.2.41-2.14.04-.94.05-1.24.05-3.62s-.01-2.68-.05-3.62c-.04-.94-.19-1.58-.41-2.14a4.31 4.31 0 0 0-1.02-1.56 4.31 4.31 0 0 0-1.56-1.02c-.56-.22-1.2-.37-2.14-.41-.94-.04-1.24-.05-3.62-.05z"/>
+        </svg>
+      </a>
+      <!-- ===== WHATSAPP: vervang de link hieronder door jullie eigen WhatsApp-link (bijv. https://wa.me/31612345678) ===== -->
+      <a href="https://wa.me/31570756230" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <rect width="24" height="24" rx="6" fill="#25d366"/>
+          <path fill="#fff" transform="translate(4 4) scale(0.667)" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
       </a>
     </footer>
